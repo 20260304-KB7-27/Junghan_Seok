@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 연습용 Options API</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 이벤트 버블링: 이벤트가 발생한 요소에서 부모 요소로 전파되는 현상 -->
+      <div @click="parentClick">
+        <a href="https://facebook.com" @click="childClick">페이스북</a>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      createApp({
+        setup() {
+          const parentClick = (e) => {
+            // e.target: 이벤트가 발생한 요소
+            // e.currentTarget: 이벤트 리스너가 부착된 요소
+
+            console.log(`이벤트가 발생한 요소:`, e.target.tagname);
+            console.log(
+              '이벤트 리스너가 부착된 요소: ',
+              e.currentTarget.tagname,
+            );
+
+            e.preventDefault(); // 요소의 기본 동작 방지
+          };
+
+          const childClick = (e) => {
+            console.log(`자식 a 태그 클릭 이벤트 발생`);
+
+            // 이벤트 버블링을 막음
+            // 버블링을 막음으로써 이벤트 전파를 중단해서 페이스북으로 이동됨.
+            e.stopPropagation();
+          };
+          return {
+            parentClick,
+            childClick,
+          };
+        },
+        methods: {},
+      }).mount('#app');
+    </script>
+  </body>
+</html>

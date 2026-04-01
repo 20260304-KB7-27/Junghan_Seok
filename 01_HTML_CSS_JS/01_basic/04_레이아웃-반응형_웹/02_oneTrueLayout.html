@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 500px;
+        margin: 10px auto;
+      }
+
+      #top {
+        background-color: green;
+      }
+
+      #bottom {
+        background-color: purple;
+      }
+
+      #left {
+        background-color: yellow;
+        width: 200px;
+      }
+
+      #right {
+        background-color: blue;
+        width: 200px;
+      }
+
+      #middle {
+        display: flex;
+        /* 
+        flex: 요소들을 정렬하기 위한 레이아웃 방식
+        특징
+        - 부모 요소에 display: flex 속성으로 플렉스 컨테이너 지정
+        - 자식 요소들을 원하는 형태로 정렬하는데 사용됨.
+        */
+        /* space-between: 양쪽 끝 정렬 */
+        /* flex-direction: ; */
+        justify-content: space-between;
+        /* 
+        center: 가운데
+        flex-end: 오른쪽
+        space-around: 동일한 여백
+        동일한 간격
+         */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="top">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic tempore
+        animi possimus, quod distinctio modi id itaque. Reiciendis, neque quos,
+        molestiae repudiandae natus quam ab, expedita maxime praesentium
+        deleniti eos.
+      </div>
+      <div id="middle">
+        Lorem ipsum dolor sit amet
+        <div id="left">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos odit
+          reiciendis ratione, quae possimus deleniti commodi tenetur vel
+          quisquam. Porro id earum officiis magnam minima aliquam esse
+          doloremque non amet.
+        </div>
+      </div>
+      <div id="bottom">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste ipsum
+        distinctio aut, eaque iusto nostrum, quos ratione deserunt quae
+        voluptatum debitis unde facere fuga placeat amet cumque. Quidem, aliquid
+        itaque.
+      </div>
+    </div>
+  </body>
+</html>

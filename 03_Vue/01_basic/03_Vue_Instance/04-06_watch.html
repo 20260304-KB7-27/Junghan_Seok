@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 연습용 Composition API</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      1보다 큰 수: <input type="text" v-model.number="num" /> <br />
+      1부터 입력한 값까지의 합: <span>{{sum}}</span><br />
+
+      <hr />
+
+      이름 수정:
+      <input type="text" v-model="name" placeholder="이름 입력" /><br />
+      나이 수정: <input type="number" v-model.number="user.age" /><br />
+      이메일 수정: <input type="text" v-model="user.email" />
+    </div>
+
+    <script>
+      const { createApp, ref, watch, computed } = Vue;
+
+      createApp({
+        setup() {
+          // --- 기존 템플릿에 필요했던 변수 추가 ---
+          const num = ref(0);
+          const sum = computed(() => {
+            let n = num.value;
+            if (isNaN(n) || n < 1) return 0;
+            return (n * (n + 1)) / 2;
+          });
+
+          // --- 기존 작성하신 로직 ---
+          const name = ref('');
+          const user = ref({
+            age: 0,
+            email: '',
+          });
+
+          // watch
+          // 반응형 데이터가 변경될 때 실행
+          // 데이터 변경에 따른 부가적인 작업을 할때 사용(알림, 로깅...)
+          watch(name, (newVal, oldVal) => {
+            console.log(`이름이 "${oldVal}"에서 "${newVal}"로 변경됨`);
+          });
+
+          // 객체를 deep을 사용해서 감시할 경우 newVal, oldVal가 동일한 Proxy 객체를 참조함.
+          //   watch(() =>
+          //     user,
+          //     (newVal, oldVal) => {
+          //       console.log(
+          //         `기존 사용자: ${oldVal.age}, ${oldVal.email}-> 변경된 사용자: ${newVal.age}, ${newVal.email}`,
+          //       );
+          //     },
+          //     {
+          //       deep: true, // 객체 내부 속성까지
+          //     },
+          //   );
+
+          watch(
+            () => ({ ...user.value }), // 객체를 복사해서 (ref이므로 .value 필요)
+            (newVal, oldVal) => {
+              console.log(
+                `기존 사용자: ${oldVal.age}, ${oldVal.email}-> 변경된 사용자: ${newVal.age}, ${newVal.email}`,
+              );
+            },
+            {
+              deep: true, // 객체 내부 속성까지
+            },
+          );
+
+          // 모든 변수를 return 해줘야 템플릿에서 쓸 수 있음
+          return { num, sum, user, name };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

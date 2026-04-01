@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 연습용 Composition</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <template v-if="isLogin">
+        <p>환영합니다 {{username}}님</p>
+        <button @click="logout">로그아웃</button>
+      </template>
+
+      <template v-else>
+        <p>로그인이 필요합니다.</p>
+        <button @click="login">로그인</button>
+      </template>
+    </div>
+
+    <script>
+      const { createApp, ref } = Vue;
+
+      createApp({
+        setup() {
+          const username = ref('홍길동');
+          const isLogin = ref(false); // 반응형 상태 변수 선언
+
+          const login = () => {
+            isLogin.value = true;
+          };
+
+          const logout = () => {
+            isLogin.value = false;
+          };
+
+          // template에서 사용할 변수와 함수를 반드시 return 해야 함
+          return {
+            username,
+            isLogin,
+            login,
+            logout,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

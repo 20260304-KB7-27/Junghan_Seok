@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 실시간 클래스 바인딩</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .warning {
+        background-color: aqua;
+        color: purple;
+        border: 2px solid red; /* 시각적 효과를 위해 추가 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div>1부터 100까지만 입력 가능합니다. (범위 벗어나면 배경색 변경)</div>
+      <div>
+        점수: <input type="text" v-model.number="score" :class="info" />
+      </div>
+    </div>
+
+    <script>
+      const { createApp, ref, computed } = Vue;
+
+      createApp({
+        setup() {
+          const score = ref(0);
+
+          // computed 속성을 통해 조건부 클래스 객체 생성
+          const info = computed(() => {
+            return {
+              // score가 1보다 작거나 100보다 크면 warning 클래스 적용
+              warning: score.value < 1 || score.value > 100,
+            };
+          });
+
+          return {
+            score,
+            info,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

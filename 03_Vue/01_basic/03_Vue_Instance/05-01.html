@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue 계좌 관리</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      금액: <input type="text" v-model.number="amount" /><br />
+      <button @click="balance += amount">입금</button>
+      <button @click="balance -= amount">인출</button>
+      <br />
+      <h3>계좌 잔고: [ {{ balance }} ]</h3>
+    </div>
+
+    <script>
+      let vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return {
+            amount: 0,
+            balance: 0,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

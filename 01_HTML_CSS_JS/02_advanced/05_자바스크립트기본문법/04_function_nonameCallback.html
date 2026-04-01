@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // 함수를선언합니다.
+      function callTenTimes(num, callback) {
+        for (let i = 0; i < num; i++) {
+          callback();
+        }
+      } // 함수를호출합니다.
+      callTenTimes(5, function () {
+        alert('함수호출');
+      });
+    </script>
+  </head>
+
+  <body></body>
+</html>

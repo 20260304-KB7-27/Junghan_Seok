@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Computed 예제</title>
+    <style>
+      .highlight {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <p>가격: {{ price }}원</p>
+      <p>수량: {{ quantity }}개</p>
+      <p>
+        <strong>총합:</strong>
+        <span :class="{ highlight: isHighlighted }">{{ total }}</span>원
+        <span :class="{ highlight: isHighlighted }">{{ total }}</span>원
+      </p>
+      <button @click="quantity++">수량 증가</button>
+      <button @click="refreshTotal">총합 다시 계산</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp, ref, computed } = Vue;
+
+      createApp({
+        setup() {
+          const price = ref(1000);
+          const quantity = ref(1);
+          const isHighlighted = ref(false);
+
+          // Composition에서 computed
+          const total = computed(() => {
+            console.log('총합 계산 실행!');
+            return price.value * quantity.value;
+          });
+
+          const refreshTotal = () => {
+            console.log('재랜더링!');
+            isHighlighted.value = !isHighlighted.value;
+          };
+
+          return {
+            price,
+            quantity,
+            total,
+            refreshTotal,
+            isHighlighted,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

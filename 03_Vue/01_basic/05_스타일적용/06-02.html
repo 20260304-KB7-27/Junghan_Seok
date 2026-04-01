@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Mouse Event Exercise</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div @mouseover="parentOverEvent" @mouseout="parentOutEvent">
+        마우스를 올려보세요 (Parent)
+      </div>
+
+      <button :style="style1" @mouseover="overEvent" @mouseout="outEvent">
+        테스트
+      </button>
+    </div>
+
+    <script>
+      //   let vm = Vue.createApp({
+      //     name: 'App',
+      //     data() {
+      //       return {
+      //         style1: {
+      //           backgroundColor: 'aqua',
+      //           color: 'black',
+      //         },
+      //       };
+      //     },
+      //     methods: {
+      //       overEvent() {
+      //         this.style1.backgroundColor = 'purple';
+      //         this.style1.color = 'yellow';
+      //       },
+      //       outEvent() {
+      //         this.style1.backgroundColor = 'aqua';
+      //         this.style1.color = 'black';
+      //       },
+      //     },
+      //   }).mount('#app');
+
+      const { createApp, ref } = Vue;
+
+      createApp({
+        setup() {
+          // 초기 스타일 설정
+          const style1 = ref({
+            backgroundColor: 'aqua',
+            color: 'black',
+          });
+
+          const parentOverEvent = () => {
+            console.log('Parent Over Event');
+          };
+
+          const parentOutEvent = () => {
+            console.log('Parent Out Event');
+          };
+
+          const overEvent = () => {
+            style1.value.backgroundColor = 'purple';
+            style1.value.color = 'yellow';
+          };
+
+          const outEvent = () => {
+            style1.value.backgroundColor = 'aqua';
+            style1.value.color = 'black';
+
+            e.stopPropagation(); // 이벤트 전파 막기
+          };
+
+          return {
+            style1,
+            parentOutEvent,
+            parentOverEvent,
+            overEvent,
+            outEvent,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

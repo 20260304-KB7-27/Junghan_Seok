@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Sum App</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      1보다 큰 수: <input type="text" v-model.number="num" /><br />
+      1부터 입력한 값까지의 합: <span>{{ sum() }}</span><br />
+      1부터 입력한 값까지의 합: <span>{{ sum() }}</span><br />
+      1부터 입력한 값까지의 합: <span>{{ sum() }}</span><br />
+    </div>
+
+    <script>
+      Vue.createApp({
+        name: 'App',
+        data() {
+          return {
+            num: 0,
+          };
+        },
+        methods: {
+          sum() {
+            console.log('## sum 메서드 호출됨');
+            let n = Number(this.num);
+            if (isNaN(n) || n < 1) return 0;
+            return (n * (n + 1)) / 2;
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>
+
+<!-- Methods (메서드) -->
+<!-- {{ sum() }} (함수처럼 호출) -->
+<!-- 캐싱 안 됨. 화면이 렌더링될 때마다(또는 호출될 때마다) 매번 실행됨. -->
+<!-- 호출할 때마다 매번 로직이 돌아가므로 연산량이 많으면 불리함. -->

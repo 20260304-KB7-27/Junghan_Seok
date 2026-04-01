@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 연습용 Options API</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 인풋 이벤트 핸들러를 통해 바로 반영-->
+      <!--
+      v-model
+      - 폼 입력 요소와 Vue의 데이터를 양영향으로 바인딩해주는 디렉티브
+      v-model 수식어
+      1. .lazy: change이벤트가 발생시에만 데이터를 업데이트'
+      2. .number: 사용자의 입력을 숫잘로 형변환 (형변환 불가시, 원래값 유지)
+      3. .trim: 입력값의 앞뒤 공백을 자동으로 제거
+      -->
+      <!-- <input type="text" v-model.="name" @input="changeName" /> -->
+      <input type="text" v-model.lazy="name" />
+      <br />
+      <div>입력한 값:{{name}}</div>
+      <input type="text" v-model.lazy="num" />
+      <br />
+      <div>입력한 값:{{num}}</div>
+    </div>
+
+    <script>
+      const { createApp, ref } = Vue;
+
+      createApp({
+        setup() {
+          const name = ref('');
+          const num = ref('');
+          // 이벤트핸들러 함수
+          const changeName = (e) => {
+            name.value = e.target.value;
+          };
+          return { name, num };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

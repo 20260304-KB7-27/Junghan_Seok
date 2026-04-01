@@ -1,0 +1,14 @@
+.box {
+  padding: 20ox;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.global-style {
+  background-color: bisque;
+  border: 2px solid yellow;
+}
+
+.container {
+  font-family: 'Gungsuh';
+}

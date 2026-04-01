@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 연습용 Options API</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <h2>일반 메세지: {{nomalMessage}}</h2>
+        <h2>반응형 메세지: {{message}}</h2>
+        <h2>현재 시간: {{currentTime}}</h2>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      let initialMessage = '일반 메세지';
+
+      createApp({
+        created() {
+          this.nomalMessage = '변경된 일반 메세지';
+        },
+        data() {
+          return {
+            nomalMessage: initialMessage,
+            message: '안녕 Vue3.',
+            currentTime: new Date().toLocaleTimeString(),
+          };
+        },
+        mounted() {
+          setInterval(() => {
+            this.currentTime = new Date().toLocaleTimeString();
+          }, 1000);
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

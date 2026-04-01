@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 연습용 Options API</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input v-model.lazy="user.email" placeholder="이메일을 입력하세요." />
+      <br />
+    </div>
+
+    <script>
+      const { createApp, ref, watch } = Vue;
+
+      createApp({
+        setup() {
+          const name = ref('');
+          const user = ref({
+            age: 0,
+            email: '',
+          });
+
+          // watch
+          // 반응형 데이터가 변경될 때 실행
+          // 데이터 변경에 따른 부가적인 작업을 할때 사용(알림, 로깅...)
+          watch(name, (newVal, oldVal) => {
+            console.log(`이름이 "${oldVal}"에서 "${newVal}"로 변경됨`);
+          });
+
+          // 객체를 deep을 사용해서 감시할 경우 newVal, oldVal가 동일한 Proxy 객체를 참조함.
+          //   watch(() =>
+          //     user,
+          //     (newVal, oldVal) => {
+          //       console.log(
+          //         `기존 사용자: ${oldVal.age}, ${oldVal.email}-> 변경된 사용자: ${newVal.age}, ${newVal.email}`,
+          //       );
+          //     },
+          //     {
+          //       deep: true, // 객체 내부 속성까지
+          //     },
+          //   );
+
+          watch(
+            () => ({ ...user }), // 객체를 복사해서
+            (newVal, oldVal) => {
+              console.log(
+                `기존 사용자: ${oldVal.age}, ${oldVal.email}-> 변경된 사용자: ${newVal.age}, ${newVal.email}`,
+              );
+            },
+            {
+              deep: true, // 객체 내부 속성까지
+            },
+          );
+
+          watchEffect(() => {
+            // 콜백함수에서 사용도니 반응형 데이터를 자동적으로 추적
+            // 변경될 경우 골백함수 실행
+            // 이전값은 확인 불가
+            console.log(`변경된 사용자: ${newVal.age}, ${newVal.email}`);
+          });
+
+          return { user, name };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

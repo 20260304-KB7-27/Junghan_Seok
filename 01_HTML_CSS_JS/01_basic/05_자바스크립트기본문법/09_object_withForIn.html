@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      //객체선언
+      //   let product = {
+      //     제품명: '7D 건조 망고',
+      //     유형: '당절임',
+      //     성분: '설탕, 망고, 메타중아황산나트륨, 치자황색소',
+      //     원산지: '필리핀',
+      //   };
+
+      // for in 반복문
+      // - 객체의 모든 속성을 순회하여 key를 변수에 할당하며 반복
+      //   for (let key in product) {
+      //     alert(product[key]);
+      //   }
+
+      //new Object()
+      let product = new Object();
+
+      product.제품명 = '7D 건조 망고';
+      product.유형 = '당절임';
+      product.성분 = '설탕, 망고, 메타중아황산나트륨, 치자황색소';
+      product.원산지 = '필리핀';
+
+      for (let key in product) {
+        alert(product[key]);
+      }
+
+      // 생성자 함수
+      function Product(제품명, 유형, 성분, 원산지) {
+        this.제품명 = 제품명;
+        this.유형 = 유형;
+        this.성분 = 성분;
+        this.원산지 = 원산지;
+      }
+
+      let product2 = new Product(
+        '7D 건조 망고',
+        '당절임',
+        '설탕, 망고, 메타중아황산나트륨, 치자황색소',
+        '필리핀',
+      );
+
+      // class 만들기(ES6+)
+      class Product {}
+    </script>
+  </head>
+
+  <body></body>
+</html>

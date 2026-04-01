@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>회원 등급 계산기</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      잔고: <input v-model.number="balance" /> <br />
+
+      회원님의 등급:
+      <span v-if="balance >= 1000000">Gold</span>
+      <span v-else-if="balance >= 500000">Silver</span>
+      <span v-else-if="balance >= 200000">Bronze</span>
+      <span v-else>Basic</span>
+    </div>
+
+    <script>
+      let vm = Vue.createApp({
+        name: 'App',
+        data() {
+          return {
+            balance: 0,
+          };
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>
