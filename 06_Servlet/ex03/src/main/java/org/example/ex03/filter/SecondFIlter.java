@@ -1,0 +1,39 @@
+package org.example.ex03.filter;
+
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import java.io.IOException;
+
+
+/*
+* Filter
+* - 클라이언트 요청이 Servlet/JSP에 도착하기전 / 응답이 나가기 전에 공통 처리를 할 수 있는 컴포넌트
+* */
+
+// @WebFilter : 필터의 동작 순서를 보장하지 않음.
+//@WebFilter(urlPatterns = {"/*"}) // 모든 요청에 대해 필터를 거치게함.
+public class SecondFIlter implements Filter {
+
+    // filter가 생성될때 동작
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        // Servlet 호출 전 (전처리)
+        System.out.println("필터2 동작 시작");
+
+        chain.doFilter(request, response); // 다음 필터 또는 servlet으로 요청 전달
+
+        // 클라이언트 응답하기 전 (후처리)
+        System.out.println("필터2 동작 끝");
+    }
+
+    // 서버가 종료될때 호출
+    @Override
+    public void destroy() {
+    }
+}
